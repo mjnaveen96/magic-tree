@@ -9,38 +9,72 @@
       templateUrl:"app/tree/Templates/treeTemplate.html"
     }
     function treeFun(scope,element,attrs) {
-
+      dat=scope.empId;
+      scope.data;
 $http({
   method: 'GET',
   url:'maindata.json'
 }).then(function(response) {
-  console.log(response.data)
+  // console.log(response.data);
+  scope.data=response.data;
+  console.log(scope.data);
+  // search(response.data);
   // scope.data = response.data[0].Children[i];
-  scope.datArr=[];
-  for(i=0;i<1;i++){
-    scope.datArr.push(response.data[i].id);
-    console.log(scope.data = response.data[i].id);
-  for(j=0;j<3;j++){
-    console.log(scope.data = response.data[i].items[j].id);
-    scope.datArr.push(response.data[i].items[j].id);
-    for(k=0;k<2;k++){
-      scope.datArr.push(response.data[i].items[j].items[k].id);
-      console.log(scope.data = response.data[i].items[j].items[k].id);
-    }
-  }
-
-  }
-  // scope.data = response.data[0].Children[0];
-  // scope.data = response.data;
-  // child(scope.data);
+  // scope.datArr=[];
+  // scope.datArr1=[];
+  // scope.datArr2=[];
+  // for(i=0;i<response.data.length;i++){
+  //   scope.datArr.push(response.data[i].id);
+  //   console.log(scope.data = response.data[i].id);
+  // for(j=0;j<response.data[i].items.length;j++){
+  //   console.log(scope.data = response.data[i].items[j].id);
+  //   scope.datArr1.push(response.data[i].items[j].id);
+  //   for(k=0;k<response.data[i].items[j].items.length;k++){
+  //     scope.datArr2.push(response.data[i].items[j].items[k].id);
+  //     console.log(scope.data = response.data[i].items[j].items[k].id);
+  //   }
+  // }
+  //
+  // }
 })
 
-      // fetch("maindata.json").then(function(response) {
-      //   response.json().then(function(data) {
-      //     console.log(data);
-      //   })
-      // })
-      // var i=JSON.parse(data);
+scope.search=function(){
+ console.log("hello");
+ //dat changed to scope.data
+ for(i=0;i<scope.data.length;i++){
+   if((scope.data[i].id)==(scope.empId))
+   {
+     console.log(scope.data[i].id);
+     break;
+   }
+   else {
+     console.log("not in level one");
+   }
+   for(j=0;j<scope.data[i].items.length;j++){
+     if((scope.data[i].items[j].id)==(scope.empId))
+     {
+        console.log(scope.data[i].items[j].id);
+         break;
+     }
+     else {
+       console.log("not in level two");
+     }
+     for(k=0;k<scope.data[i].items[j].items.length;k++){
+       if ((scope.data[i].items[j].items[k].id)==(scope.empId))
+       {
+         console.log(scope.data[i].items[j].items[k].id);
+          break;
+       }
+       else {
+         console.log("not in level three");
+       }
+  }
+}
+
+}
+}
+
     }
+
   }
 })();
