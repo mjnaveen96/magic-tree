@@ -11,6 +11,7 @@
     function treeFun(scope,element,attrs) {
       dat=scope.empId;
       scope.data;
+      var treeArr=[];
 $http({
   method: 'GET',
   url:'maindata.json'
@@ -40,39 +41,70 @@ $http({
 
 scope.search=function(){
  console.log("hello");
- //dat changed to scope.data
- for(i=0;i<scope.data.length;i++){
-   if((scope.data[i].id)==(scope.empId))
-   {
+ let found=0;
+ for(i=0;i<scope.data.length;i++)
+ {
+    if((scope.data[i].id)==(scope.empId))
+    {
+      found=1;
+      console.log("parent null");
      console.log(scope.data[i].id);
+     treeArr.push(scope.data[i].id);
+     createTree(treeArr);
      break;
-   }
-   else {
-     console.log("not in level one");
-   }
-   for(j=0;j<scope.data[i].items.length;j++){
-     if((scope.data[i].items[j].id)==(scope.empId))
+    }
+   else if(found==0)
+   {
+     // console.log("not in level one");
+     for(j=0;j<scope.data[i].items.length;j++)
      {
-        console.log(scope.data[i].items[j].id);
-         break;
-     }
-     else {
-       console.log("not in level two");
-     }
-     for(k=0;k<scope.data[i].items[j].items.length;k++){
-       if ((scope.data[i].items[j].items[k].id)==(scope.empId))
+       if((scope.data[i].items[j].id)==(scope.empId))
        {
-         console.log(scope.data[i].items[j].items[k].id);
+         found=1;
+         console.log("parent1 "+scope.data[i].id);
+         console.log(scope.data[i].items[j].id);
+         // createTree(treeArr.push(scope.data[i].id));
+         // createTree(treeArr.push(scope.data[i].items[j].id));
           break;
        }
-       else {
-         console.log("not in level three");
+       else if(found==0)
+       {
+         // console.log("not in level two");
+         for(k=0;k<scope.data[i].items[j].items.length;k++)
+         {
+            if ((scope.data[i].items[j].items[k].id)==(scope.empId))
+            {
+              found=1;
+              console.log("parent1 "+scope.data[i].id);
+              console.log("parent2 "+scope.data[i].items[j].id);
+              console.log(scope.data[i].items[j].items[k].id);
+              // createTree(treeArr.push(scope.data[i].id));
+              // createTree(treeArr.push(scope.data[i].items[j].id));
+              // createTree(treeArr.push(scope.data[i].items[j].items[k].id));
+               break;
+            }
+            else
+            {
+              // console.log("not in level three");
+              // found=0;
+            }
+         }
        }
-  }
+
+     }
+   }
+ }
 }
 
-}
-}
+    function createTree(elem){
+      for(i=0;i<elem.length;i++){
+          var para = document.createElement("p");
+          var node = document.createTextNode(elem[i]);
+          para.appendChild(node[i]);
+          var element = document.getElementById("tree");
+          element.appendChild(para);
+      }
+    }
 
     }
 
