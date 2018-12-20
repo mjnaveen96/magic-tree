@@ -1,22 +1,97 @@
 <style>
-p {
-	position: absolute;
-	left: 400px;
+* {
+	box-sizing: border-box;
+}
+#tree {
+	margin: auto;
+	padding: 0;
+	list-style-type: none;
+	/* border: 1px solid green; */
+	width: 500px;
+}
+.container {
+	border: 1px solid gray;
+	display: inline-block;
+}
+
+.level0 {
+	display: inline-block;
+	position: relative;
+	border: 1px solid green;
+}
+.level1 {
+	display: inline-block;
+	position: relative;
+	border: 1px solid red;
+}
+.level2 {
+	display: inline-block;
+	position: relative;
+	border: 1px solid blue;
+}
+ #innerTree {
+	/* display: inline-block; */
+	border: 1px solid gray;
+	padding: 5px;
+	margin: 10px;
 	width: 100px;
-	height: 50px;
-	border: 3px solid black !important;
+	text-align: center;
 }
 </style>
 
 
 <form class="empId">
   <input type="text" name="empId" value="hello" placeholder="employee id" ng-model=empId>
-  <!-- {{empId}} -->
-  <input type="submit" name="button" ng-click="search()" value="Submit">
+  <input type="submit" name="button" ng-click="search(empId, true)" value="Submit">
 </form>
-<!-- {{empId}} -->
 <br>
 <br>
-<div id="tree">
+<div>
+<!-- <ul id="tree">
+<li  id="innerTree" ng-repeat="tree in treeArr track by $index" ng-click="getChild(tree,true,$index)">{{tree}}
 
+	 <li ng-show="myVar" ng-repeat="child in childTreeArr track by $index" ng-click="getChild(child,true)">{{child}}</li>
+</li>
+
+</ul> -->
+<!-- <script type="text/ng-template"  id="tree_item_renderer.html">
+
+
+    <ul>
+        <li ng-if="tree < viewArr.length-1" ng-repeat="tree in viewArr" ng-include="'tree_item_renderer.html'">
+					<span id="innerTree" ng-click="getChild(tree.id,true,$index)">{{tree.id}}</span>
+				</li>
+    </ul>
+</script>
+<div id="tree">
+	<ul>
+	    <li ng-repeat="tree in viewArr" ng-include="'tree_item_renderer.html'"></li>
+	</ul>
+</div> -->
+
+
+<!-- <div id="tree">
+<ul class="container" ng-class="tree.level === 0 ? 'level0' : (tree.level === 1 ? 'level1' : 'level2')" ng-repeat="tree in viewArr track by $index">
+	<li id="innerTree" ng-click="getChild(tree.id,true,$index)">{{tree.id}}</li>
+</ul>
+</div> -->
+
+	<!-- <div id="innerTree" style="display:inline-block;" ng-repeat="child in childTreeArr track by $index" ng-click="getChild(child,true,$index+1)">{{child}}</div> -->
+<div id="tree">
+	<div class="container" ng-if="tree.level === 0" ng-class="level0" ng-repeat="tree in viewArr track by $index">
+		<div class="innerTree" ng-click="getChild(tree.id,true,$index)">
+			{{tree.id}}
+		</div>
+	</div>
+	<div class="container" ng-if="tree.level === 1" ng-class="level1" ng-repeat="tree in viewArr track by $index">
+		<div class="innerTree" ng-click="getChild(tree.id,true,$index)">
+			{{tree.id}}
+		</div>
+	</div>
+	<div class="container" ng-if="tree.level === 2" ng-class="level2" ng-repeat="tree in viewArr track by $index">
+		<div class="innerTree" ng-click="getChild(tree.id,true,$index)">
+			{{tree.id}}
+		</div>
+	</div>
+</div>
 </div>

@@ -51,6 +51,7 @@ scope.search=function(){
      console.log(scope.data[i].id);
      treeArr.push(scope.data[i].id);
      createTree(treeArr);
+     treeArr=[];
      break;
     }
    else if(found==0)
@@ -63,8 +64,10 @@ scope.search=function(){
          found=1;
          console.log("parent1 "+scope.data[i].id);
          console.log(scope.data[i].items[j].id);
-         // createTree(treeArr.push(scope.data[i].id));
-         // createTree(treeArr.push(scope.data[i].items[j].id));
+         treeArr.push(scope.data[i].id);
+         treeArr.push(scope.data[i].items[j].id);
+         createTree(treeArr);
+         treeArr=[];
           break;
        }
        else if(found==0)
@@ -78,15 +81,17 @@ scope.search=function(){
               console.log("parent1 "+scope.data[i].id);
               console.log("parent2 "+scope.data[i].items[j].id);
               console.log(scope.data[i].items[j].items[k].id);
-              // createTree(treeArr.push(scope.data[i].id));
-              // createTree(treeArr.push(scope.data[i].items[j].id));
-              // createTree(treeArr.push(scope.data[i].items[j].items[k].id));
+              treeArr.push(scope.data[i].id);
+              treeArr.push(scope.data[i].items[j].id);
+              treeArr.push(scope.data[i].items[j].items[k].id);
+              createTree(treeArr);
+              treeArr=[];
                break;
             }
             else
             {
               // console.log("not in level three");
-              // found=0;
+              found=0;
             }
          }
        }
@@ -99,10 +104,13 @@ scope.search=function(){
     function createTree(elem){
       for(i=0;i<elem.length;i++){
           var para = document.createElement("p");
+          var x = document.createElement("br");
           var node = document.createTextNode(elem[i]);
-          para.appendChild(node[i]);
+          para.appendChild(node);
           var element = document.getElementById("tree");
           element.appendChild(para);
+          element.appendChild(x);
+
       }
     }
 
